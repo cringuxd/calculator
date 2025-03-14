@@ -14,11 +14,20 @@ const text = document.querySelector(".textbox");
 /*Number Buttons*/
 for(let i = 0; i < num_buttons.length; i++) {
     num_buttons[i].onclick = () => {
-        if(text.textContent == "0") {
+        if(number2 == "" && operator != "") {
+            text.textContent = "0";
+        }
+        if(text.textContent == "0" || text.textContent == "you do know you can't divide by zero, right?") {
             text.textContent = num_buttons[i].textContent;
         }
         else {
             text.textContent += num_buttons[i].textContent;
+        }
+        if(operator == "") {
+            number1 += num_buttons[i].textContent;
+        }
+        else {
+            number2 += num_buttons[i].textContent;
         }
     };
 }
@@ -31,35 +40,91 @@ for(let i = 0; i < num_buttons.length; i++) {
    Case 3:  **/
 // +
 calc_buttons[0].onclick = () => {
-    
-    if(number1 == "" && number2 == "") {
-        number1 = text.textContent;
-        operator = '+';
-        text.textContent = "";
-    }
-    else if(number2 == "") {
-        number2 = text.textContent;
-        number1 = (operate(Number(number1), operator, Number(number2))).toString();
+    if(operator == "") {
+        operator = "+";
+    } 
+    else if(number2 == "0" && operator == "/") {
+        text.textContent = "you do know you can't divide by zero, right?"
+        number1 = "";
+        operator = "";
         number2 = "";
-        text.textContent = number1;
     }
-        
+    else {
+        number1 = (Math.round(operate(Number(number1),operator,Number(number2)))).toString();
+        text.textContent = number1;
+        operator = "+";
+        number2 = "";
+    }
 }
 // -
 calc_buttons[1].onclick = () => {
-    
+    if(operator == "") {
+        operator = "-";
+    } 
+    else if(number2 == "0" && operator == "/") {
+        text.textContent = "you do know you can't divide by zero, right?"
+        number1 = "";
+        operator = "";
+        number2 = "";
+    }
+    else {
+        number1 = (Math.round(operate(Number(number1),operator,Number(number2)))).toString();
+        text.textContent = number1;
+        operator = "-";
+        number2 = "";
+    }
 }
 // *
 calc_buttons[2].onclick = () => {
-    
+    if(operator == "") {
+        operator = "*";
+    }
+    else if(number2 == "0" && operator == "/") {
+        text.textContent = "you do know you can't divide by zero, right?"
+        number1 = "";
+        operator = "";
+        number2 = "";
+    }
+    else {
+        number1 = (Math.round(operate(Number(number1),operator,Number(number2)))).toString();
+        text.textContent = number1;
+        operator = "*";
+        number2 = "";
+    }
 }
 // /
 calc_buttons[3].onclick = () => {
-    
+    if(operator == "") {
+        operator = "/";
+    } 
+    else if(number2 == "0" && operator == "/") {
+        text.textContent = "you do know you can't divide by zero, right?"
+        number1 = "";
+        operator = "";
+        number2 = "";
+    }
+    else {
+        number1 = (Math.round(operate(Number(number1),operator,Number(number2)))).toString();
+        console.log(number1);
+        text.textContent = number1;
+        operator = "/";
+        number2 = "";
+    }
 }
 // =
 calc_buttons[4].onclick = () => {
-    
+    if(number2 == "0" && operator == "/") {
+        text.textContent = "you do know you can't divide by zero, right?"
+        number1 = "";
+        operator = "";
+        number2 = "";
+    }
+    else if(number1 != "" && number2 != "" && operator != "") {
+        number1 = (Math.round(operate(Number(number1),operator,Number(number2)))).toString();
+        text.textContent = number1;
+        operator = "";
+        number2 = "";
+    }
 }
 // CLEAR
 calc_buttons[5].onclick = () => {
